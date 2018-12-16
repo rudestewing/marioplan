@@ -7,6 +7,16 @@ import './assets/css/dist/main.css'
 // Package
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
+// Redux
+import { createStore, applyMiddleware, compose } from 'redux';
+import rootReducer from './redux/reducers/rootReducer';
+import { Provider } from 'react-redux'
+import thunk from 'redux-thunk';
+
+import { reduxFirestore, getFirestore } from 'redux-firestore';
+import { reactReduxFirebase, getFirebase, reduxFirebase } from 'react-redux-firebase';
+import fbConfig from './config/firebase';
+ 
 
 // Components
 import SignIn from './components/auth/SignIn'
@@ -17,25 +27,35 @@ import Dashboard from './components/dashboard/Dashboard'
 import ProjectDetail from './components/projects/ProjectDetail'
 import CreateProject from './components/projects/CreateProject'
 
+
+const store = createStore(rootReducer,
+    compose(
+        applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore})),
+        reduxFirestore(fbConfig),
+        reduxFirebase(fbConfig)
+    )
+);
+
 class App extends Component {
     render() {
-
         return (
-            <BrowserRouter>
-                <div className="app">
-                    <Navbar />
-                    <div className="main">
-                        <Switch>
-                            <Route exact path="/" component={Dashboard} />
-                            <Route exact path="/signin" component={SignIn} />
-                            <Route exact path="/signup" component={SignUp} />
+            <Provider store={store}> 
+                <BrowserRouter>
+                    <div className="app">
+                        <Navbar />
+                        <div className="main">
+                            <Switch>
+                                <Route exact path="/" component={Dashboard} />
+                                <Route exact path="/signin" component={SignIn} />
+                                <Route exact path="/signup" component={SignUp} />
 
-                            <Route exact path="/project/create" component={CreateProject} />
-                            <Route exact path="/project/:id" component={ProjectDetail} />
-                        </Switch>
+                                <Route exact path="/project/create" component={CreateProject} />
+                                <Route exact path="/project/:id" component={ProjectDetail} />
+                            </Switch>
+                        </div>
                     </div>
-                </div>
-            </BrowserRouter>
+                </BrowserRouter>
+            </Provider>
         )
     }
 }

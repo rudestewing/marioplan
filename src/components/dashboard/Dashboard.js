@@ -5,7 +5,6 @@ import Notifications from './Notifications'
 import ProjectList from '../projects/ProjectList'
 
 class Dashboard extends Component {
-
     render() {
         return (
             <div className=" container dashboard">

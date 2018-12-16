@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 
-const ProjectSummary = () => {
+const ProjectSummary = (props) => {
+    const { project } = props;
     return (
         <div className="card">
             <div className="card-body">
                 <h5 className="card-title">
-                    card title
+                    {project.title}
                 </h5>
                 <p className="card-text">
-                    this is card text
+                    {project.content}
                 </p>
                 <p className="card-text"><small> posted by: ninja </small></p>
             </div>
