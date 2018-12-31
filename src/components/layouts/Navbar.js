@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom'
 import SignedInLinks from './SignedInLinks'
 import SignedOutLinks from './SignedOutLinks'
 
+import { connect } from 'react-redux';
+
 // Assets 
 import logo from '../../assets/images/firebase.png'
 
@@ -25,4 +27,11 @@ const Navbar = () => {
     )
 }
 
-export default Navbar;
+const mapStatetoProps = (state) => {
+    console.log(state);
+    return {
+        
+    }
+}
+
+export default connect(mapStatetoProps)(Navbar);

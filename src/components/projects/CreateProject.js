@@ -8,6 +8,12 @@ import { createProject } from '../../redux/actions/projectActions'
 
 
 class CreateProject extends Component {
+    componentDidMount() {
+        
+        console.log('hi');
+        
+    }
+
     state = {
         title: '',
         content: '',

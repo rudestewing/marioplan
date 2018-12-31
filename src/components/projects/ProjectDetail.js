@@ -38,7 +38,6 @@ const ProjectDetail = (props) => {
             </div>
         )
     }
-
 }
 
 
