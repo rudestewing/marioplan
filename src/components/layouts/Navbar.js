@@ -12,25 +12,23 @@ import { connect } from 'react-redux';
 // Assets 
 import logo from '../../assets/images/firebase.png'
 
-const Navbar = () => {
+const Navbar = (props) => {
+    const { auth } = props;
+    const links = auth.uid ? <SignedInLinks /> : <SignedOutLinks />;
     return (
         <div className="navbar navbar-light bg-light">
             <Link to="/" className="navbar-brand">
                 <img className="logo" src={logo} alt=""/>
                 <span><strong> MarioPlan </strong></span>
             </Link>
-
-            <SignedInLinks />
-            <SignedOutLinks />
-
+            {links}
         </div>
     )
 }
 
 const mapStatetoProps = (state) => {
-    console.log(state);
     return {
-        
+        auth: state.firebase.auth
     }
 }
 
