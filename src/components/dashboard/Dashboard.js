@@ -1,11 +1,21 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 // Component 
-import Notifications from './Notifications'
-import ProjectList from '../projects/ProjectList'
+import Notifications from './Notifications';
+import ProjectList from '../projects/ProjectList';
+
+
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { auth } from 'firebase';
 
 class Dashboard extends Component {
     render() {
+        const { auth } = this.props;
+
+        if(!auth.uid) {   
+            return <Redirect to='/signin' />
+        }   
         return (
             <div className=" container dashboard">
                 <div className="row">
@@ -21,4 +31,11 @@ class Dashboard extends Component {
     }
 }
 
-export default Dashboard;
+const mapStateToProps = (state) => {
+    return {
+        auth: state.firebase.auth
+    }
+} 
+
+
+export default connect(mapStateToProps)(Dashboard);
